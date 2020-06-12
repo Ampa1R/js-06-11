@@ -1,8 +1,8 @@
 const goods = [
     { title: 'Компьютер', price: 10000 },
     { title: 'Мышь', price: 500 },
-    { title: 'Клавиатура', price: 1000 },
-    { title: 'Монитор', price: 7000 },
+    { title: 'Клавиатура', price: 400 },
+    { title: 'Монитор', price: 700 },
 ];
 
 const getGoodsItem = (title, price) => {
