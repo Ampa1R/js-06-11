@@ -1,25 +1,22 @@
 class Hamburger {
-    // Возможно это выглядит не красиво, но я хочу хранить все настройки бургера внутри класса
-    // Для этого использую static
-    // Запишу их заглавными буквами(не должны редактироваться)
-    // Варианты размеров
+
     static  sizes = {
         small: { id: "small", price: 50, calories: 20 },
         big: { id: "big", price: 100, calories: 40 },
     }
-    // Варианты начинок
+
     static stuff = {
         cheese: { id: "cheese", price: 10, calories: 20 },
         salad: { id: "salad", price: 20, calories: 5 },
         fries: { id: "fries", price: 15, calories: 10 },
     };
-    // Варианты добавок
+
     static toppings = {
         spice: { id: "spice", price: 15, calories: 0 },
         mayo: { id: "mayo", price: 20, calories: 5 }
     };
 
-    // Конструктор класса
+
     constructor(size, stuffing) {
          this.size = size;
          this.stuffing = stuffing;
@@ -28,36 +25,36 @@ class Hamburger {
 
 
 
-    // Добавить добавку
+  
     addTopping(topping) {
-        // Ищем добавку в бургере
+
         let foundTopping = this.topping.find(x => x.id == topping.id);
-        // Если добавки нет, то добавляем ее
+
         if ( foundTopping === undefined){
             this.topping.push(topping);
         }
     }
-    // Убрать добавку
+
     removeTopping(topping) {
-        // ищем добавку в бургере
+
         let index = this.topping.indexOf(topping);
-        // если нашли, то удаляем ее
+
         if (index >= 0) {
             this.topping.splice(index, 1);
         }
     }
-    // Получить список добавок
+
     getToppings() {
         return this.topping;
     }
 
 
-    // Узнать размер гамбургера
+
     getSize() {
         return this.size;
 
     }
-    // Узнать начинку гамбургера
+
     getStuffing() {
         return this.stuffing;
     }
