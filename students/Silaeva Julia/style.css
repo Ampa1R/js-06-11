@@ -69,7 +69,7 @@ main{
 }
 
 .goods-item:hover{
-    border: 3px dotted #3a7999;
+    border: 2px dotted #3a7999;
 	color: #FFEFD5;
 	background: rgba(0,0,0,0);
 }
