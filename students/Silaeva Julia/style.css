@@ -73,3 +73,13 @@ main{
 	color: #FFEFD5;
 	background: rgba(0,0,0,0);
 }
+
+
+.goods-button{
+    font-size: 15px;
+    background-color: pink;
+}
+
+.goods-button:hover{
+    background-color: pink;
+}
