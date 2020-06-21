@@ -72,12 +72,12 @@ class GoodsList {
 
 class Basket {
 	constructor() {
-		this.selectedGoods = [] //выбранные товары
+		this.selectedGoods = [] //выбрать
 	}
 
-	addToBasket //добавить в корзину
+	addToBasket //добавить 
 
-	deleteFromBasket //удалить товар из корзины
+	deleteFromBasket //удалить 
 
 	order //заказать
 
