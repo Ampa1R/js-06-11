@@ -1,24 +1,12 @@
 <template>
   <header>
-   <Search>  
-    
-    </Search>
-    <Backet></Backet>
-    
+    <slot />
   </header>
 </template>
 
 <script>
-    
-import Search from "./Search.vue"; 
-import Backet from "./Backet.vue";    
-    
 export default {
   name: "Header",
-  components: {
-      Search,
-      Backet,
-  }
 };
 </script>
 

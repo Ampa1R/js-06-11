@@ -1,7 +1,7 @@
-
-  
 <template>
-       <div class="korzinka">
+    
+    <div>
+                  
       <button
         type="button"
         class="cart-button"
@@ -12,49 +12,42 @@
       <div class="cart" v-if="isCartVisible">
         <div
           class="cart-item"
-          v-for="item in cartGoods"
+             v-for = "item in cartGoods"      
           v-bind:key="item.id_product"
         >
           <h3>{{ item.product_name }}</h3>
           <p>{{ item.price }}</p>
         </div>
-      </div>
-      </div>
-      </template>
-
-
+             </div>
+        <slot />
+    </div>   
+</template>
 <script>
 export default {
-  name: "Backet",
-    
+  name: "Backet",    
  data() {
-    return {
-      
-      cartGoods: [],
-      
-      isCartVisible: false,
-    };
-  },   
-    
-  methods: {
-    addToCart(item) {
-      this.$emit("addToCart", item);
+     return {
+        isCartVisible: false,          
+     }
+ },    
+ 
+props: {       
+        cartGoods: {
+            type: Array,
+      required: false,
+        }        
+        },   
+methods: {
+   handleCartButtonClick() {
+      this.isCartVisible = !this.isCartVisible;       
     },
-  },
-    
-
-    
-    
-};
-
-    
-
-
+},        
+}
 </script>
 
 <style>
-
-.cart-button {
+    
+    .cart-button {
   border: none;
   border-radius: 20px;
   padding: 7px 20px;
@@ -88,13 +81,15 @@ export default {
   margin-bottom: 10px;
 }
 
+.goods-list {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
+    
 </style>
-
-
-
-
-
-
 
 

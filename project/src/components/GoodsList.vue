@@ -35,6 +35,7 @@ export default {
   methods: {
     addToCart(item) {
       this.$emit("addToCart", item);
+        console.log(item)
     },
   },
 };

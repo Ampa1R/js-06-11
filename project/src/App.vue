@@ -1,9 +1,12 @@
 <template>
-  <div id="app">
-    <Header>
-     
-     
-    </Header>
+  <div id="app">        
+       <Header>     
+     <Search :text="searchText" @textChange="handleTextChange" />      
+     <Backet 
+      :cartGoods="cartGoods"     
+      />      
+          
+    </Header>      
     <GoodsList
       @addToCart="addToCart"
       :filteredGoods="filteredGoods"
@@ -15,8 +18,9 @@
 <script>
 import GoodsList from "./components/GoodsList.vue";
 import Header from "./components/Header.vue";
-// import Search from "./components/Search.vue";
-// import Backet from "./components/Backet.vue";    
+import Search from "./components/Search.vue";    
+import Backet from "./components/Backet.vue";   
+    
 
 const API =
   "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses";
@@ -26,6 +30,8 @@ export default {
   components: {
     GoodsList,
     Header,
+    Search, 
+    Backet,  
   },
   data() {
     return {
@@ -39,6 +45,13 @@ export default {
     this.fetchGoods();
   },
   methods: {
+      
+      
+     handleTextChange(value) {
+      this.searchText = value;
+    }, 
+      
+      
     fetchGoods() {
       fetch(`${API}/catalogData.json`)
         .then((result) => {
@@ -57,10 +70,7 @@ export default {
         this.cartGoods.splice(index, 1);
       }
     },
-    handleCartButtonClick() {
-      this.isCartVisible = !this.isCartVisible;
-    },
-  },
+      },
   computed: {
     filteredGoods() {
       const regexp = new RegExp(this.searchText, "i");
@@ -87,12 +97,4 @@ body {
   background-color: #f9fafc;
 }
 
-
-.goods-list {
-  width: 70%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
 </style>
