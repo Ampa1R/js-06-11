@@ -13,8 +13,7 @@ export default {
 <style>
 header {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   background: #fff;
   padding: 20px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);

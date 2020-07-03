@@ -1,17 +1,14 @@
 {
-  "name": "project",
+  "name": "lesson6",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "server": "node server"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
     "vue": "^2.6.11"
   },
   "devDependencies": {
