@@ -14,9 +14,7 @@ app.get('/catalog', (request, response) => {
     fs.readFile('./catalog.json', 'utf-8', (err, data) => {
         if (err) {
             console.log('Error!', err);
-            response.status(500).json({
-                message: 'Ошибка!'
-            });
+            response.status(500).json({ message: 'Ошибка!' });
             return;
         }
         response.send(data);
@@ -27,9 +25,7 @@ app.get('/cart', (request, response) => {
     fs.readFile('./cart.json', 'utf-8', (err, data) => {
         if (err) {
             console.log('Error!', err);
-            response.status(500).json({
-                message: 'Ошибка!'
-            });
+            response.status(500).json({ message: 'Ошибка!' });
             return;
         }
         response.send(data);
@@ -40,30 +36,44 @@ app.post('/addToCart', (request, response) => {
     fs.readFile('./cart.json', 'utf-8', (err, data) => {
         if (err) {
             console.log('Error!', err);
-            response.json({
-                result: 0
-            });
+            response.json({ result: 0 });
             return;
         }
 
         const cart = JSON.parse(data);
         cart.push(request.body.item);
+        
+          const am = request.body.item;
+        
+        
+        
+        
+        am.deistvie = 'Добавление';
+        
+        fs.appendFile('./stats.json', JSON.stringify(am), (err) => {
+        if (err) {
+            console.log('Error!', err);
+            response.json({
+                result: 0
+            });
+            return;
+        }
+                     
+        }
+                     )
 
+        
+        
         fs.writeFile('./cart.json', JSON.stringify(cart), (err) => {
             if (err) {
-                response.json({
-                    result: 0
-                });
+                response.json({ result: 0 });
                 return;
             }
 
-            response.json({
-                result: 1
-            });
+            response.json({ result: 1 });
         });
     });
 });
-
 
 
 app.delete('/removeFromCart', (request, response) => {     //поменяли на пост, не забыть поправить делит
@@ -74,19 +84,40 @@ app.delete('/removeFromCart', (request, response) => {     //поменяли н
                 result: 0
             });
             return;
+                }
+        
+        const cart = JSON.parse(data);
+        const index = cart.findIndex(({ id_product }) => id_product === request.body.item.id_product);
+        if (index !== -1) {
+            cart.splice(index, 1);
+        } 
+                                    
+                                    
+                                     
+             const am = request.body.item;
+        
+        
+        
+        
+        am.deistvie = 'Удаление';
+        
+        fs.appendFile('./stats.json', JSON.stringify(am), (err) => {
+        if (err) {
+            console.log('Error!', err);
+            response.json({
+                result: 0
+            });
+            return;
         }
-        console.log(data);        
-        const cart = JSON.parse(data); // приходит дата 
-        
-        
-     //   cart.splice(request.body.item);
- 
-                     const index = this.cart.findIndex(({ id_product }) => id_product === request.body.item.id_product);       
-           if (index !== -1) {
-          this.cart.splice(index, 1);
-          console.log(this.cartGoods);
-            
-        
+                     
+        }
+                     )
+    
+                                  
+                                  
+                                  
+                                  
+                                  
         
         
         
@@ -110,9 +141,6 @@ app.delete('/removeFromCart', (request, response) => {     //поменяли н
         
     });
 });
-
-
-
 
 
 

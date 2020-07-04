@@ -6,8 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "server": "node server",
-    "start": "node server.js"
+    "server": "node server"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -42,9 +41,5 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ],
-  "description": "## Project setup ``` npm install ```",
-  "main": "babel.config.js",
-  "author": "",
-  "license": "ISC"
+  ]
 }
