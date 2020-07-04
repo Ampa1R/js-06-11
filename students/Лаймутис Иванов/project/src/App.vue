@@ -1,14 +1,24 @@
 <template>
-  <div id="app">        
-       <Header>     
-     <Search :text="searchText" @textChange="handleTextChange" />      
-     <Backet 
-      :cartGoods="cartGoods"     
-      />      
-          
-    </Header>      
+  <div id="app">
+    <Header>
+      <Search
+        :text="searchText"
+        @textChange="(value) => (searchText = value)"
+      />
+      <button
+        type="button"
+        class="cart-button"
+        v-on:click="isCartVisible = !isCartVisible"
+      >
+        Корзина
+      </button>
+      <Cart v-if="isCartVisible" :cartGoods="cartGoods" />
+    </Header>
+    <Error v-if="isError" />
     <GoodsList
+      v-else
       @addToCart="addToCart"
+      @removeFromCart="removeFromCart"
       :filteredGoods="filteredGoods"
       emptyGoodsMessage="Товаров нет"
     />
@@ -18,20 +28,20 @@
 <script>
 import GoodsList from "./components/GoodsList.vue";
 import Header from "./components/Header.vue";
-import Search from "./components/Search.vue";    
-import Backet from "./components/Backet.vue";   
-    
+import Search from "./components/Search.vue";
+import Cart from "./components/Cart.vue";
+import Error from "./components/Error.vue";
 
-const API =
-  "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses";
+const API = "http://localhost:3000";
 
 export default {
   name: "App",
   components: {
     GoodsList,
     Header,
-    Search, 
-    Backet,  
+    Cart,
+    Search,
+    Error,
   },
   data() {
     return {
@@ -39,38 +49,124 @@ export default {
       cartGoods: [],
       searchText: "",
       isCartVisible: false,
+      isError: false,
     };
   },
   mounted() {
     this.fetchGoods();
+    this.fetchCart();
   },
   methods: {
-      
-      
-     handleTextChange(value) {
-      this.searchText = value;
-    }, 
-      
-      
     fetchGoods() {
-      fetch(`${API}/catalogData.json`)
+      fetch(`${API}/catalog`)
         .then((result) => {
           return result.json();
         })
         .then((data) => {
           this.goods = data;
+        })
+        .catch((err) => {
+          this.isError = true;
+          console.error(err);
+        });
+    },
+    fetchCart() {
+      fetch(`${API}/cart`)
+        .then((result) => {
+          return result.json();
+        })
+        .then((data) => {
+          this.cartGoods = data;
+        })
+        .catch((err) => {
+          console.error(err);
         });
     },
     addToCart(item) {
-      this.cartGoods.push(item);
+      fetch(`${API}/addToCart`, {
+        method: "POST",
+        body: JSON.stringify({ item }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((result) => {
+          return result.json();
+        })
+        .then((data) => {
+          if (data.result) {
+            this.cartGoods.push(item);
+          } else {
+            console.error("Cant add item to cart");
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
-    removeFromCart(id) {
-      const index = this.cartGoods.find(({ id_product }) => id_product === id);
+      
+      
+    removeFromCart(item) {
+        
+        fetch(`${API}/removeFromCart`, {
+        method: "DELETE",
+        body: JSON.stringify({ item }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        
+       .then((result) => {
+          return result.json();
+        })
+        .then((data) => {
+          if (data.result) {
+              
+              
+           const index = this.cartGoods.findIndex(({ id_product }) => id_product === item.id_product);       
+           if (index !== -1) {
+          this.cartGoods.splice(index, 1);
+          console.log(this.cartGoods);
+          
+          
+          } else {
+            console.error("Can't delete item");
+          }
+        }})
+        .catch((err) => {
+          console.error(err);
+        }); 
+        
+        
+    }, 
+      
+      
+      
+      
+      
+      
+      
+/*      
+      
+    removeFromCart(item) {        
+      const index = this.cartGoods.findIndex(({ id_product }) => id_product === item.id_product);
+      console.log(index);
+        console.log(item);
+      console.log(item.id_product);
+      console.log(this.cartGoods);    
       if (index !== -1) {
         this.cartGoods.splice(index, 1);
       }
     },
-      },
+      
+      
+  */    
+      
+      
+    handleCartButtonClick() {
+      this.isCartVisible = !this.isCartVisible;
+    },
+  },
   computed: {
     filteredGoods() {
       const regexp = new RegExp(this.searchText, "i");
@@ -97,4 +193,32 @@ body {
   background-color: #f9fafc;
 }
 
+.cart-button {
+  border: none;
+  border-radius: 20px;
+  padding: 7px 20px;
+  background: #0b5bb8;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  color: #fff;
+}
+
+.cart-button:focus {
+  outline: none;
+  background: #0c50a0;
+}
+
+.cart-button:hover {
+  background: #3b7eb9;
+}
+
+.goods-list {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 </style>
