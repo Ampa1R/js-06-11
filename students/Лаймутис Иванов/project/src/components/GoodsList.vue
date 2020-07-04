@@ -7,6 +7,7 @@
         :key="item.id_product"
         :item="item"
         @addToCart="addToCart"
+        @removeFromCart="removeFromCart"
       />
     </div>
   </main>
@@ -37,6 +38,13 @@ export default {
       this.$emit("addToCart", item);
         console.log(item)
     },
+      
+    
+      removeFromCart(item) {
+        this.$emit("removeFromCart", item);
+        console.log(item)  
+      },
+      
   },
 };
 </script>

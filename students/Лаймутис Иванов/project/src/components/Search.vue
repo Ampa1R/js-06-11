@@ -1,35 +1,23 @@
 <template>
-  <div>
-         <button type="button" class="search-button">Искать</button>
-         <input class="goods-search" :value="text" @input="handleInput" type="text"/>
-
-
-    
+  <div class="search">
+    <input type="text" class="goods-search" :value="text" @input="handleInput" />
+    <button type="button" class="search-button">Искать</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "Search",
-
-    
-props: {
-    text: { 
-    type: String,
-    required: true,
-        }
-},
-  
-methods: {
-   handleInput(event) {
-       this.$emit("textChange", event.target.value);
-   } 
-}    
-    
-    
-    
-};    
+  props: {
+      text: {
+          required: true,
+          type: String,
+      },
+  },
+  methods: {
+      handleInput(e) {
+          this.$emit('textChange', e.target.value);
+      },
+  },
+};
 </script>
-
-<style>
-</style>

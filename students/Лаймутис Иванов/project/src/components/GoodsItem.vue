@@ -4,6 +4,9 @@
     <p>{{ item.price }}</p>
     <button @click="$emit('addToCart', item)" name="add-to-cart">
       Добавить в корзину
+    </button >
+    <button @click="$emit('removeFromCart', item)" name="remove-from-cart">
+      Удалить из корзины    
     </button>
   </div>
 </template>
