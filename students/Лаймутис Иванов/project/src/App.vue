@@ -1,3 +1,4 @@
+
 <template>
   <div id="app">
     <Header>
@@ -31,9 +32,7 @@ import Header from "./components/Header.vue";
 import Search from "./components/Search.vue";
 import Cart from "./components/Cart.vue";
 import Error from "./components/Error.vue";
-
 const API = "http://localhost:3000";
-
 export default {
   name: "App",
   components: {
@@ -182,7 +181,6 @@ export default {
 *::before {
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -192,7 +190,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #f9fafc;
 }
-
 .cart-button {
   border: none;
   border-radius: 20px;
@@ -204,16 +201,13 @@ body {
   cursor: pointer;
   color: #fff;
 }
-
 .cart-button:focus {
   outline: none;
   background: #0c50a0;
 }
-
 .cart-button:hover {
   background: #3b7eb9;
 }
-
 .goods-list {
   width: 70%;
   margin: 0 auto;
